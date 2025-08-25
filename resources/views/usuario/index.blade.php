@@ -35,25 +35,36 @@
                                         <th style="width: 150px">ID</th>
                                         <th style="width: 400px">Nombre</th>
                                         <th style="width: 500px">Correo</th>
+                                        <th style="width: 150px">Activo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if(count($registros)<=0)
+                                    <tr>
+                                        <td colspan="5">No hay registrosque coincidan con la busqueda</td>
+                                    </tr>
+                                    @else
+                                    @foreach($registros as $reg)
                                     <tr>
                                         <td>
-                                            <a href="#"class="btn btn-warning btn-md">
+                                            <a href="#" class="btn btn-warning btn-md">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
-                                            <button class="btn btn-danger btn-md" data-bs-toggle="modal" data-bs-target="#modal-eliminar-01">
+                                            <button class="btn btn-danger btn-md" data-bs-toggle="modal"
+                                                data-bs-target="#modal-eliminar-01">
                                                 <i class="bi bi-trash-fill"></i>
 
                                             </button>
                                         </td>
-                                        <td>1</td>
-                                        <td>Brayan Vergel G.</td>
-                                        <td>MrBrianVeGa@gmail.com</td>
+                                        <td>{{$reg->id}}</td>
+                                        <td>{{$reg->name}}</td>
+                                        <td>{{$reg->email}}</td>
+                                        <td>{{$reg->activo}}</td>
 
                                     </tr>
                                     @include('usuario.delete')
+                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -61,13 +72,8 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                        <ul class="pagination pagination-sm m-0 float-end">
-                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                        </ul>
+                        {{$registros->appends(["texto"=>$texto])}}
+
                     </div>
                 </div>
                 <!-- /.card -->
