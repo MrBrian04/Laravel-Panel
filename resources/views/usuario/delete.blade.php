@@ -1,14 +1,16 @@
-<div class="modal" id="modal-eliminar-01" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal" id="modal-eliminar-{{$reg->id}}" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
-            <form action="" method="post">
+            <form action="{{route('usuarios.destroy', $reg->id)}}" method="post">
+                @csrf
+                @method('DELETE')
 
                 <div class="modal-header">
                     <h4>Eliminar registro</h4>
                 </div>
 
                 <div class="modal-body">
-                    ¿Usted desea eliminar el registro xyz?
+                    ¿Usted desea eliminar el registro de {{$reg->name}}?
                 </div>
 
                 <div class="modal-footer">
