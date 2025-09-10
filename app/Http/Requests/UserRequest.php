@@ -27,4 +27,19 @@ class UserRequest extends FormRequest
             'password' => 'required|min:8',
         ];
     }
+
+     public function messages(){
+        return [
+            'name.required' => 'El campo nombre es obligatorio.',
+            'name.string' => 'El campo nombre debe ser una cadena de texto.',
+            'name.max' => 'El campo nombre no puede superar los 255 caracteres.',
+
+            'email.required' => 'El campo correo electrónico es obligatorio.',
+            'email.email' => 'Debe ingresar un correo electrónico válido.',
+            'email.unique' => 'Este correo electrónico ya esta registrado.',
+
+            'password.required' => 'El campo contraseña es obligatorio.',
+            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+        ];
+    }
 }
