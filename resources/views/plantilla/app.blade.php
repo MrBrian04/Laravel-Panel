@@ -3,7 +3,7 @@
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Panel | Administración </title>
+    <title>Panel | Administración</title>
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -11,21 +11,21 @@
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
     <!--end::Accessibility Meta Tags-->
     <!--begin::Primary Meta Tags-->
-    <meta name="title" content="Panel | Administración " />
+    <meta name="title" content="Panel | Administración" />
     <meta name="author" content="ColorlibHQ" />
     <meta
       name="description"
-      content="Panel de administración del sistema."
+      content="Panel de administración del sistema"
     />
     <meta
       name="keywords"
-      content="panel, administracion, MrBrianApp"
+      content="panel, administración, codeart"
     />
     <!--end::Primary Meta Tags-->
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
-    <link rel="preload" href="{{asset('css/adminlte.css')}}" as="style" />
+    <link rel="preload" href="{{ asset('css/adminlte.css') }}" as="style" />
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
     <link
@@ -52,7 +52,7 @@
     />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="{{asset('/css/adminlte.css')}}" />
+    <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}" />
     <!--end::Required Plugin(AdminLTE)-->
     @stack('css')
   </head>
@@ -61,13 +61,13 @@
   <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
     <!--begin::App Wrapper-->
     <div class="app-wrapper">
-      <!--begin::Header-->
 
+      <!--begin::Header-->
       @include('plantilla.header')
       <!--end::Header-->
-      <!--begin::Sidebar-->
-      @include('plantilla.menu')
 
+      <!--begin::Sidebar-->
+     @include('plantilla.menu')
       <!--end::Sidebar-->
       <!--begin::App Main-->
       <main class="app-main">
@@ -91,10 +91,8 @@
         </div>
         <!--end::App Content Header-->
         <!--begin::App Content-->
-
-        @yield('contenido')
-
         
+        @yield('contenido')
 
         <!--end::App Content-->
       </main>
@@ -107,7 +105,7 @@
         <!--begin::Copyright-->
         <strong>
           Copyright &copy; 2014-2025&nbsp;
-          <a href="#" class="text-decoration-none">MrBrianApp</a>.
+          <a href="#" class="text-decoration-none">artcode.com</a>.
         </strong>
         All rights reserved.
         <!--end::Copyright-->
@@ -132,7 +130,7 @@
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="{{asset('js/adminlte.js')}}"></script>
+    <script src="{{ asset('js/adminlte.js') }}"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
@@ -155,7 +153,6 @@
       });
     </script>
     <!--end::OverlayScrollbars Configure-->
-
     <!--end::Script-->
     @stack('scripts')
   </body>

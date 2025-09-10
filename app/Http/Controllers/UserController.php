@@ -12,12 +12,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $texto = $request->input('texto');
-        $registros=User::where('name', 'like', '%'.$texto.'%')
+        $texto =$request->input('texto');
+        $registros=User::where('name','like','%'.$texto.'%')
             ->orWhere('email','like','%'.$texto.'%')
             ->orderBy('id','desc')
             ->paginate(1);
-            return view('usuario.index', compact('registros','texto'));
+            return view('usuario.index',compact('registros','texto'));
+
     }
 
     /**
@@ -25,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('usuario.action');
     }
 
     /**
