@@ -72,7 +72,8 @@ class UserController extends Controller
         $registro->password=bcrypt($request->input('password'));
         $registro->activo=$request->input('activo');
         $registro->save();
-        return redirect()->route('usuarios.index')->with('mensaje','registro'.$registro->name.'Actualizado satisfactoriamente');
+        return redirect()->route('usuarios.index')->with('mensaje','registro'
+        .$registro->name.'Actualizado satisfactoriamente');
 
 
     }
@@ -84,6 +85,7 @@ class UserController extends Controller
     {
         $registro=User::findOrFail($id);
         $registro->delete();
-        return redirect()->route('usuarios.index')->with('mensaje', $registro->name.' Fue eliminado satisfactoriamente');
+        return redirect()->route('usuarios.index')->with('mensaje',
+         $registro->name.' Fue eliminado satisfactoriamente');
     }
 }
