@@ -16,7 +16,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            
+                           
                         </div>
                     </div>
                     <!-- /.card -->
@@ -33,6 +33,6 @@
 
 @push('scripts')
     <script>
-        /document.getElementById('mnuDashboard').classList.add('active');
+        // document.getElementById('mnuDashboard').classList.add('active');
     </script>
 @endpush
