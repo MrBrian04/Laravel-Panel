@@ -11,9 +11,13 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $texto= $request->input('texto');//variable del texto de la busqueda
+        $registros= Role::with('permissions')->where('name','like',"%{$texto}%")
+        ->orderBy('id','desc')
+        ->paginate(5);
+        return view('role.index', compact('registros', 'texto'));
     }
 
     /**
@@ -21,7 +25,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permisions=Permission::all();
+        return view('role.action', compact('permisions'));
     }
 
     /**
@@ -29,7 +34,14 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required|unique:roles,name',
+            'permissions'=>'required|array',
+        ]);
+        $registro=Role::create(['name'=> $request->name]);
+        $registro->syncPermissions($request->permissions);
+
+        return redirect()->route('roles.index')->with('mesaje','Rol'.$registro->name.' Creado satisfactoriamente');
     }
 
     /**
@@ -45,7 +57,9 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $registro=Role::findOrFail($id);
+        $permisions=Permission::all();
+        return view('role.action',compact('registro', 'permissions'));
     }
 
     /**
@@ -53,7 +67,14 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $registro =Role::findOrFail($id);
+        $request->validate([
+            'name'=>'required|unique:roles,name'.$registro->id,
+            'permissions'=>'required|array',
+        ]);
+        $registro->update(['name'=> $request->name]);
+        $registro->syncPermissions($request->permissions);
+
     }
 
     /**
@@ -61,6 +82,9 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $registro = Role::findOrFail($id);
+        $registro->delete();
+
+        return redirect()->route('roles.index')->with('mensaje', 'Rol eliminado correctamente');
     }
 }
