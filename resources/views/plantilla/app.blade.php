@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -81,7 +81,7 @@
         </div>
         <!--end::App Content Header-->
         <!--begin::App Content-->
-        
+
         @yield('contenido')
 
         <!--end::App Content-->

@@ -21,7 +21,10 @@
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-search"></i>
                                                 Buscar</button>
+                                            @can('role-create')
                                             <a href="{{ route('roles.create') }}" class="btn btn-primary">Nuevo</a>
+                                            @endcan
+
                                         </div>
                                     </div>
                                 </form>
@@ -48,16 +51,22 @@
                                             </tr>
                                         @else
                                             @foreach ($registros as $reg)
-                                                <tr>
+                                                <tr class="aling-middle">
                                                     <td>
+                                                    @can('rol-edit')
                                                         <a href="{{ route('roles.edit', $reg->id) }}"
                                                             class="btn btn-info btn-sm">
                                                             <i class="bi bi-pencil-fill"></i>
                                                         </a>
+                                                    @endcan
+
+                                                    @can('rol-delete')
                                                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                             data-bs-target="#modal-eliminar-{{ $reg->id }}">
                                                             <i class="bi bi-trash-fill"></i>
                                                         </button>
+                                                    @endcan
+
                                                     </td>
                                                     <td>{{ $reg->id }}</td>
                                                     <td>{{ $reg->name }}</td>
@@ -72,7 +81,10 @@
                                                     </td>
 
                                                 </tr>
+
+                                            @can('rol-delete')
                                                 @include('role.delete')
+                                            @endcan
                                             @endforeach
                                         @endif
                                     </tbody>
@@ -96,3 +108,11 @@
         <!--end::Container-->
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.getElementById('menuSeguridad').classList.add('menu-open');
+        document.getElementById('itemRole').classList.add('active');
+    </script>
+
+@endpush
