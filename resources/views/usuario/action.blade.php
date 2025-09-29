@@ -12,7 +12,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="{{isset($registro)?route('usuarios.update', $registro->id) : route('usuarios.store') }}" method="POST" id="formRegistroUsuario">
+                            <form action="{{ isset($registro)?route('usuarios.update', $registro->id) : route('usuarios.store') }}" method="POST" id="formRegistroUsuario">
                                 @csrf
                                 @if (isset($registro))
                                     @method('PUT')
@@ -20,14 +20,14 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="name" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $registro->name ??'')}}" required>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $registro->name ??'') }}" required>
                                         @error('name')
                                             <small class="text-danger">{{$message}}</small>
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $registro->email ??'')}}" required>
+                                        <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $registro->email ??'') }}" required>
                                         @error('email')
                                             <small class="text-danger">{{$message}}</small>
                                         @enderror
@@ -44,8 +44,8 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="activo" class="form-label">Estado</label>
                                         <select class="form-select" name="activo" id="activo">
-                                            <option value="1"{{old('activo', $registro->activo ?? '1')=='1' ?'selected' : ''}}>Activo</option>
-                                            <option value="0"{{old('activo', $registro->activo ?? '1')=='0' ?'selected' : ''}}>Inactivo</option>
+                                            <option value="1" {{ old('activo', $registro->activo ?? '1') == '1' ? 'selected' : '' }} >Activo</option>
+                                            <option value="0" {{ old('activo', $registro->activo ?? '0') == '0' ? 'selected' : '' }}>Inactivo</option>
                                         </select>
                                          @error('activo')
                                             <small class="text-danger">{{$message}}</small>

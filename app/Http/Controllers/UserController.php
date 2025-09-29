@@ -58,7 +58,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $registro=User::findOrFail($id);
-        return view('usuario.action',compact('registro'));
+        return view('usuario.action', compact('registro'));
     }
 
     /**
@@ -72,27 +72,22 @@ class UserController extends Controller
         $registro->password=bcrypt($request->input('password'));
         $registro->activo=$request->input('activo');
         $registro->save();
-        return redirect()->route('usuarios.index')->with('mensaje','registro'
-        .$registro->name.'Actualizado satisfactoriamente');
-
-
+        return redirect()->route('usuarios.index')->with('mensaje','registro'.$registro->name.' Actualizado satisfatoriamente ' );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         $registro=User::findOrFail($id);
         $registro->delete();
-        return redirect()->route('usuarios.index')->with('mensaje',
-         $registro->name.' Fue eliminado satisfactoriamente');
+        return redirect()->route('usuarios.index')->with('mensaje', $registro->name. ' eliminado satisfatoriamente.');
     }
 
     public function toggleStatus(User $usuario){
-        $usuario->activo=!$usuario->activo;
+        $usuario->activo = !$usuario->activo;
         $usuario->save();
-        return redirect()->route('usuarios.index') ->with('mensaje', 'El Estado del Usuario fue actualizado satisfactoriamente');
-
+        return redirect()->route('usuarios.index')->with('mensaje', 'El estado del usuario fue actualizado satisfactoriamente');
     }
 }

@@ -13,7 +13,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div>
-                                <form action="" method="get">
+                                <form action="{{ route('roles.index') }}" method="get">
                                     <div class="input-group">
                                         <input name="texto" type="text" class="form-control" value=""
                                             placeholder="Ingrese texto a buscar">
@@ -26,18 +26,16 @@
                                     </div>
                                 </form>
                             </div>
-
-                            @if(Session::has('mensaje'))
-                                <div class="alert alert-info alert-dismissible fade show mt-2">
-                                    {{Session::get('mensaje')}}
+                            @if (Session::has('mensaje'))
+                                <div class="">
+                                    {{ Session::get('mensaje') }}
                                 </div>
                             @endif
-
                             <div class="table-responsive mt-3">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th style="width: 100px">Opciones</th>
+                                            <th style="width: 130px">Opciones</th>
                                             <th style="width: 20px">ID</th>
                                             <th>Nombre</th>
                                             <th>Permisos</th>
@@ -46,33 +44,33 @@
                                     <tbody>
                                         @if (count($registros) <= 0)
                                             <tr>
-                                                <td colspan="4">No hay roles que coincidan con la busqueda</td>
+                                                <td colspan="4">No hay registros que coincidan con la busqueda</td>
                                             </tr>
                                         @else
                                             @foreach ($registros as $reg)
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('roles.edit', $reg->id) }}" class="btn btn-info btn-sm">
+                                                        <a href="{{ route('roles.edit', $reg->id) }}"
+                                                            class="btn btn-info btn-sm">
                                                             <i class="bi bi-pencil-fill"></i>
                                                         </a>
                                                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#modal-eliminar-{{$reg->id}}">
+                                                            data-bs-target="#modal-eliminar-{{ $reg->id }}">
                                                             <i class="bi bi-trash-fill"></i>
                                                         </button>
                                                     </td>
                                                     <td>{{ $reg->id }}</td>
                                                     <td>{{ $reg->name }}</td>
                                                     <td>
-                                                        @if($reg->permissions->isNotempty())
-                                                           {!! $reg->permissions->pluck('name')->map(function($name) {
-                                                            return "<span class='badge bg-primary me-1'>$name</span>";
-                                                        })->implode(' ') !!}
-
+                                                        @if ($reg->permissions->isNotEmpty())
+                                                            {!! $reg->permissions->pluck('name')->map(function ($name) {
+                                                                    return "<span class='badge bg-primary me-1'>$name</span>";
+                                                                })->implode(' ') !!}
                                                         @else
                                                             <span class="badge bg-secondary">Sin permisos</span>
-
                                                         @endif
                                                     </td>
+
                                                 </tr>
                                                 @include('role.delete')
                                             @endforeach
@@ -84,7 +82,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            {{ $registros->appends(["texto"=>$texto]) }}
+                            {{ $registros->appends(['texto' => $texto]) }}
                         </div>
                     </div>
                     <!-- /.card -->
