@@ -23,12 +23,12 @@
                     <a href="{{route('dashboard')}}" class="nav-link" id="mnuDashboard">
                         <i class="nav-icon bi bi-speedometer"></i>
                         <p>
-                            Dashboard
+                            Panel de Control
                         </p>
                     </a>
                 </li>
                 @canany(['user-list', 'rol-list'])
-                <li class="nav-item" id="mnuSeguridad">
+                <li class="nav-item" id="menuSeguridad">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-speedometer"></i>
                         <p>

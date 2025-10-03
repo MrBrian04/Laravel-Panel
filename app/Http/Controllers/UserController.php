@@ -5,6 +5,8 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Spatie\Permission\Models\Role;
+
 
 
 class UserController extends Controller
@@ -17,7 +19,7 @@ class UserController extends Controller
     {
         $this->authorize('user-list');
         $texto =$request->input('texto');
-        $registros=User::where('name','like','%'.$texto.'%')
+        $registros=User::with('roles')->where('name','like','%'.$texto.'%')
             ->orWhere('email','like','%'.$texto.'%')
             ->orderBy('id','desc')
             ->paginate(10);
@@ -31,7 +33,8 @@ class UserController extends Controller
     public function create()
     {
         $this->authorize('user-create');
-        return view('usuario.action');
+        $roles=Role::all();
+        return view('usuario.action', compact('roles'));
     }
 
     /**
@@ -46,6 +49,8 @@ class UserController extends Controller
         $registro->password=bcrypt($request->input('password'));
         $registro->activo=$request->input('activo');
         $registro->save();
+
+        $registro->assignRole([$request->input('role')]);
         return redirect()->route('usuarios.index')->with('mensaje','Registro '.$registro->name. ' agregado correctamente');
     }
 
@@ -64,7 +69,8 @@ class UserController extends Controller
     {
         $this->authorize('user-edit');
         $registro=User::findOrFail($id);
-        return view('usuario.action', compact('registro'));
+        $roles=Role::all();
+        return view('usuario.action', compact('registro', 'roles'));
     }
 
     /**
@@ -79,6 +85,7 @@ class UserController extends Controller
         $registro->password=bcrypt($request->input('password'));
         $registro->activo=$request->input('activo');
         $registro->save();
+        $registro->assignRole([$request->input('role')]);
         return redirect()->route('usuarios.index')->with('mensaje','Registro'.$registro->name.' actualizado satisfatoriamente ' );
     }
 
