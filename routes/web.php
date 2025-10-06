@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
@@ -27,4 +28,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware('guest')->group(function () {
     Route::get('login', function () { return view('autenticacion.login');})->name('login');
     Route::post('login', [AuthController::class, 'login'])->name('login.post');
+
+    Route::get('/registro', [RegisterController::class, 'showRegisterForm'])->name('registro');
+    Route::post('/registro', [RegisterController::class, 'registration'])->name('registro.store');
+
 });

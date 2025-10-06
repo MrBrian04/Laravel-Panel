@@ -12,6 +12,15 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            @if (@Session::has('mensaje'))
+                                <div class="alert alert-info alert-dismissible fade show mt-2">
+                                    {{Session::get('mensaje')}}
+                                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="close">
+
+                                    </button>
+
+                                </div>
+                            @endif
 
                         </div>
                         <!-- /.card-body -->
