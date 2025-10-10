@@ -47,7 +47,7 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <input type="text" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
-                                        value="{{old('password')}}"required>
+                                        value="{{old('password')}}">
                                         @error('password')
                                             <small class="text-danger">{{$message}}</small>
                                         @enderror
@@ -55,7 +55,7 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="password_confirmation" class="form-label">Confirme la contraseña</label>
                                         <input type="text" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation"
-                                         name="password_confirmation" value="{{old('password_confirmation')}}" required>
+                                         name="password_confirmation" value="{{old('password_confirmation')}}">
                                         @error('password_confirmation')
                                             <small class="text-danger">{{$message}}</small>
                                         @enderror
