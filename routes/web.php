@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Http\Controllers\Auth\PerfilController;
+
 
 
 Route::get('/', function () {
@@ -23,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
      Auth::logout();
      return redirect('/login');
     })->name('logout');
+    Route::get('/perfil', [PerfilController::class, 'edit'])->name('perfil.edit');
+    Route::put('/perfil', [PerfilController::class, 'update'])->name('perfil.update');
 });
 
 Route::middleware('guest')->group(function () {

@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Spatie\Permission\Models\Role;
-
+use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
@@ -46,6 +46,9 @@ class UserController extends Controller
         $registro=new User();
         $registro->name=$request->input('name');
         $registro->email=$request->input('email');
+        if($registro->filled('password')){
+            $registro->password = Hash::make($request->input('password'));
+        }
         $registro->password=bcrypt($request->input('password'));
         $registro->activo=$request->input('activo');
         $registro->save();
@@ -86,7 +89,7 @@ class UserController extends Controller
         $registro->activo=$request->input('activo');
         $registro->save();
         $registro->assignRole([$request->input('role')]);
-        return redirect()->route('usuarios.index')->with('mensaje','Registro'.$registro->name.' actualizado satisfatoriamente ' );
+        return redirect()->route('usuarios.index')->with('mensaje','Registro '.$registro->name.' actualizado satisfatoriamente ' );
     }
 
     /**

@@ -22,7 +22,7 @@
              </li>
              <!--end::Fullscreen Toggle-->
              <!--begin::User Menu Dropdown-->
-             @if (Auth::check())                         
+             @if (Auth::check())
              <li class="nav-item dropdown user-menu">
                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                      <span class="d-none d-md-inline"> {{ Auth::user()->name }}  </span>
@@ -37,7 +37,9 @@
                      <!--end::User Image-->
 
                      <!--begin::Menu Footer-->
-                     <li class="user-footer">                      
+                     <li class="user-footer">
+                         <a href="{{route('perfil.edit')}}" class="btn btn-default btn-flat">Perfil</a>
+
                          <a href="#" onclick="document.getElementById('logout-form').submit();" class="btn btn-default btn-flat float-end">Cerrar sesión</a>
                      </li>
                      <!--end::Menu Footer-->
