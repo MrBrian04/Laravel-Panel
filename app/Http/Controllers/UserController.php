@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,13 +19,12 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $this->authorize('user-list');
-        $texto =$request->input('texto');
-        $registros=User::with('roles')->where('name','like','%'.$texto.'%')
-            ->orWhere('email','like','%'.$texto.'%')
-            ->orderBy('id','desc')
+        $texto = $request->input('texto');
+        $registros = User::with('roles')->where('name', 'like', '%' . $texto . '%')
+            ->orWhere('email', 'like', '%' . $texto . '%')
+            ->orderBy('id', 'desc')
             ->paginate(10);
-            return view('usuario.index',compact('registros','texto'));
-
+        return view('usuario.index', compact('registros', 'texto'));
     }
 
     /**
@@ -33,7 +33,7 @@ class UserController extends Controller
     public function create()
     {
         $this->authorize('user-create');
-        $roles=Role::all();
+        $roles = Role::all();
         return view('usuario.action', compact('roles'));
     }
 
@@ -43,18 +43,17 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $this->authorize('user-create');
-        $registro=new User();
-        $registro->name=$request->input('name');
-        $registro->email=$request->input('email');
-        if($registro->filled('password')){
-            $registro->password = Hash::make($request->input('password'));
-        }
-        $registro->password=bcrypt($request->input('password'));
-        $registro->activo=$request->input('activo');
+        $registro = new User();
+        $registro->name = $request->input('name');
+        $registro->email = $request->input('email');
+        $registro->password = Hash::make($request->input('password'));
+
+        $registro->password = bcrypt($request->input('password'));
+        $registro->activo = $request->input('activo');
         $registro->save();
 
         $registro->assignRole([$request->input('role')]);
-        return redirect()->route('usuarios.index')->with('mensaje','Registro '.$registro->name. ' agregado correctamente');
+        return redirect()->route('usuarios.index')->with('mensaje', 'Registro ' . $registro->name . ' agregado correctamente');
     }
 
     /**
@@ -71,8 +70,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $this->authorize('user-edit');
-        $registro=User::findOrFail($id);
-        $roles=Role::all();
+        $registro = User::findOrFail($id);
+        $roles = Role::all();
         return view('usuario.action', compact('registro', 'roles'));
     }
 
@@ -82,14 +81,18 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         $this->authorize('user-edit');
-        $registro=User::findOrFail($id);
-        $registro->name=$request->input('name');
-        $registro->email=$request->input('email');
-        $registro->password=bcrypt($request->input('password'));
-        $registro->activo=$request->input('activo');
+        $registro = User::findOrFail($id);
+        $registro->name = $request->input('name');
+        $registro->email = $request->input('email');
+        if ($request->filled('password')) {
+            $registro->password = Hash::make($request->input('password'));
+        }
+        $registro->activo = $request->input('activo');
         $registro->save();
-        $registro->assignRole([$request->input('role')]);
-        return redirect()->route('usuarios.index')->with('mensaje','Registro '.$registro->name.' actualizado satisfatoriamente ' );
+
+        $registro->syncRoles([$request->input('role')]);
+
+        return redirect()->route('usuarios.index')->with('mensaje', 'Registro ' . $registro->name . '  actualizado correctamente');
     }
 
     /**
@@ -98,9 +101,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $this->authorize('user-delete');
-        $registro=User::findOrFail($id);
+        $registro = User::findOrFail($id);
         $registro->delete();
-        return redirect()->route('usuarios.index')->with('mensaje', $registro->name. ' eliminado satisfatoriamente.');
+        return redirect()->route('usuarios.index')->with('mensaje', $registro->name . ' eliminado satisfatoriamente.');
     }
 
     public function toggleStatus(User $usuario)
